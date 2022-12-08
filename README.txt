@@ -43,3 +43,32 @@ djangorestframework==3.14.0
     python3 manage.py migrate
     python3 manage.py makemigrations <app_name>
     `
+
+# Models
+- Create a simple model (column)
+    `
+    from django.db import models
+
+    # Create your models here.
+    class Drink(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.CharField(max_length=500)
+
+    # String representation.
+    def __str__(self):
+        return self.name + ' ' + self.description
+    `
+
+# Django Rest Framework
+0. Add `django_restframework` in installed apps in settings.py
+1. Create `serializers.py` for the application `api`
+2. Create a class to serialize the `Drink` model
+`
+    from rest_framework import serializers
+    from api.models import Drink
+
+    class DrinkSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Drink
+        fields = ['id', 'name', 'description']
+`
